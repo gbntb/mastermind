@@ -2,7 +2,7 @@
 
 # This is the Computer. You can try to guess its combination, or it can be the one
 # trying to guess yours.
-class ComputerPlayer
+class ComputerPlayer < Player
   def generate_combination(colors)
     combination = Array.new(4)
 
