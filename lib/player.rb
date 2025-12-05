@@ -6,14 +6,16 @@ class Player
     feedback_array = []
 
     guess.each_with_index do |guess_color, guess_color_index|
-      # rubocop: disable Style/ConditionalAssignment
-      if combination[guess_color_index] == guess_color
-        feedback_array[guess_color_index] = 2
-      else
-        feedback_array[guess_color_index] = combination.include?(guess_color) ? 1 : 0
-      end
-      # rubocop: enable Style/ConditionalAssignment
+      feedback_array[guess_color_index] = generate_color_feedback(combination, guess_color, guess_color_index)
     end
     feedback_array
+  end
+
+  private
+
+  def generate_color_feedback(combination, guess_color, guess_color_index)
+    return 2 if combination[guess_color_index] == guess_color
+
+    combination.include?(guess_color) ? 1 : 0
   end
 end
