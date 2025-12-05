@@ -12,6 +12,8 @@ class ComputerPlayer < Player
   end
 
   def generate_guess(previous_guess, feedback, colors)
+    return generate_combination(colors) if previous_guess.nil? && feedback.nil?
+
     guess = Array.new(4)
     available_colors = colors.dup
     place_good_colors(previous_guess, feedback, guess, available_colors)

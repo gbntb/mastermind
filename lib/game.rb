@@ -27,6 +27,25 @@ class Game
     human_game_over(guess_correct)
   end
 
+  # rubocop: disable Metrics/MethodLength
+  def computer_guesser_loop
+    combination = human.input_combination(COLORS)
+    guess_correct = false
+    puts 'The computer is trying to guess your secret combination...'
+    previous_guess = nil
+    feedback = nil
+    6.times do
+      guess = computer.generate_guess(previous_guess, feedback, COLORS)
+      guess_correct = true if guess == combination
+      break if guess == combination
+
+      feedback = human.give_feedback(combination, guess)
+      previous_guess = guess
+    end
+    computer_game_over(guess_correct)
+  end
+  # rubocop: enable Metrics/MethodLength
+
   private
 
   attr_accessor :computer, :human
@@ -36,6 +55,14 @@ class Game
       puts 'You found the secret combination! You win!'
     else
       puts "Game Over! You couldn't guess the secret combination! You lose!"
+    end
+  end
+
+  def computer_game_over(guess_correct)
+    if guess_correct
+      puts 'The computer guessed your secret combination. You lose!'
+    else
+      puts "The computer couldn't guess your combination. You win!"
     end
   end
 end
