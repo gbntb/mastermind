@@ -14,11 +14,26 @@ class Game
     self.human = HumanPlayer.new
   end
 
+  def main_loop
+    puts 'Welcome to MasterMind!'
+    puts 'Would you like to guess the code(1), or create the code(2)?'
+    print 'Your choice: '
+    if gets.chomp.to_i == 1
+      human_guesser_loop
+    else
+      computer_guesser_loop
+    end
+  end
+
+  private
+
+  attr_accessor :computer, :human
+
   def human_guesser_loop
     combination = computer.generate_combination(COLORS)
     guess_correct = false
     puts "You are guessing the computer's secret combination."
-    6.times do
+    12.times do
       guess = human.input_combination(COLORS)
       puts "Feedback : #{computer.give_feedback(combination, guess)}"
       guess_correct = true if guess == combination
@@ -34,7 +49,7 @@ class Game
     puts 'The computer is trying to guess your secret combination...'
     previous_guess = nil
     feedback = nil
-    6.times do
+    12.times do
       guess = computer.generate_guess(previous_guess, feedback, COLORS)
       guess_correct = true if guess == combination
       break if guess == combination
@@ -45,10 +60,6 @@ class Game
     computer_game_over(guess_correct)
   end
   # rubocop: enable Metrics/MethodLength
-
-  private
-
-  attr_accessor :computer, :human
 
   def human_game_over(guess_correct)
     if guess_correct
