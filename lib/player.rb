@@ -2,7 +2,7 @@
 
 # This class holds all the functionality shared by both HumanPlayer and ComputerPlayer
 class Player
-  def feedback(combination, guess)
+  def give_feedback(combination, guess)
     feedback_array = []
 
     guess.each_with_index do |guess_color, guess_color_index|
